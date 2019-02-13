@@ -23,9 +23,11 @@ const ToastProvider = ({ maxToasts, children }) => {
     <ToastContext.Provider value={{ addToast }}>
       {ReactDOM.createPortal(
         <ToastContainer>
-          {toasts.map(({ message, id }) => (
-            <Toast message={message} key={id} />
-          ))}
+          <ul>
+            {toasts.map(({ message, id }) => (
+              <Toast message={message} key={id} />
+            ))}
+          </ul>
         </ToastContainer>,
         document.body
       )}

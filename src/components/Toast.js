@@ -45,7 +45,7 @@ Toast.propTypes = {
   message: PropTypes.string.isRequired
 };
 
-const PosedContainer = posed.div({
+const PosedContainer = posed.li({
   visible: {
     opacity: 1,
     scaleY: 1,
