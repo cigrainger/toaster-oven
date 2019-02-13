@@ -1,14 +1,18 @@
 import React from "react";
+import GithubCorner from "react-github-corner";
 import { createGlobalStyle } from "styled-components";
 import Generator from "./components/Generator";
-import Toast from "./components/Toast";
 import ToastProvider from "./components/ToastProvider";
 
 const App = () => (
   <ToastProvider maxToasts={3}>
     <GlobalStyle />
     <Generator />
-    <Toast message="test" />
+    <GithubCorner
+      href="https://github.com/cigrainger/toaster-oven"
+      octoColor="#405362"
+      bannerColor="#fdf4d8"
+    />
   </ToastProvider>
 );
 

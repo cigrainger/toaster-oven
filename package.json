@@ -10,6 +10,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
+    "react-github-corner": "^2.3.0",
     "react-pose": "^4.0.7",
     "react-scripts": "2.1.5",
     "styled-components": "^4.1.3"
