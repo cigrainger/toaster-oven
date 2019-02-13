@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import styled from "styled-components";
 import Toast from "./Toast";
 
 export const ToastContext = React.createContext(null);
@@ -18,18 +16,11 @@ const ToastProvider = ({ maxToasts, children }) => {
     setToasts(newToasts);
   };
 
+  const removeToast = (toastToRemove) =>
+    toasts.filter((toast) => toast !== toastToRemove);
+
   return (
-    <ToastContext.Provider value={{ addToast }}>
-      {ReactDOM.createPortal(
-        <ToastContainer>
-          <ul>
-            {toasts.map(({ message, id }) => (
-              <Toast message={message} key={id} />
-            ))}
-          </ul>
-        </ToastContainer>,
-        document.body
-      )}
+    <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
       {children}
     </ToastContext.Provider>
   );
@@ -39,15 +30,5 @@ Toast.propTypes = {
   maxToasts: PropTypes.number,
   children: PropTypes.node
 };
-
-const ToastContainer = styled.div`
-  width: 40vw;
-  background: transparent;
-  position: fixed;
-  top: 0;
-  margin: 1% auto;
-  display: flex;
-  flex-direction: column;
-`;
 
 export default ToastProvider;

@@ -5,23 +5,20 @@ import React, { useEffect, useState } from "react";
 import posed from "react-pose";
 import styled from "styled-components";
 
-const Toast = ({ autoClose = 3000, message }) => {
+const Toast = ({ timeout, message }) => {
   const [show, setShow] = useState(true);
-  const [render, setRender] = useState(true);
 
   useEffect(() => {
-    let viewTimer = setTimeout(() => setShow(false), autoClose);
-    let renderTimer = setTimeout(() => setRender(false), autoClose + 200);
+    let viewTimer = setTimeout(() => setShow(false), timeout);
 
     return () => {
       clearTimeout(viewTimer);
-      clearTimeout(renderTimer);
     };
   }, []);
 
   return (
-    render && (
-      <Container pose={show ? "visible" : "hidden"} initialPose="hidden">
+    show && (
+      <Container>
         <MainRow>
           <ChildContainer>{message}</ChildContainer>
           <CloseContainer>
@@ -33,7 +30,7 @@ const Toast = ({ autoClose = 3000, message }) => {
         <TimeoutStrip
           pose={show ? "visible" : "hidden"}
           initialPose="hidden"
-          duration={autoClose}
+          duration={timeout}
         />
       </Container>
     )
@@ -46,7 +43,7 @@ Toast.propTypes = {
 };
 
 const PosedContainer = posed.li({
-  visible: {
+  enter: {
     opacity: 1,
     scaleY: 1,
     transition: {
@@ -54,7 +51,14 @@ const PosedContainer = posed.li({
       default: { ease: "linear", duration: 200 }
     }
   },
-  hidden: { opacity: 0, scaleY: 0 }
+  exit: {
+    opacity: 0,
+    scaleY: 0,
+    transition: {
+      opacity: { ease: "easeOut", duration: 200 },
+      default: { ease: "linear", duration: 200 }
+    }
+  }
 });
 
 const Container = styled(PosedContainer)`
@@ -65,6 +69,7 @@ const Container = styled(PosedContainer)`
   margin: 24px auto 0;
   background-color: #fdf4d8;
   border-radius: 2px;
+  transform-origin-y: 0%;
 `;
 
 const MainRow = styled.div`

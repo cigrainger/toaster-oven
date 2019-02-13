@@ -2,11 +2,13 @@ import React from "react";
 import GithubCorner from "react-github-corner";
 import { createGlobalStyle } from "styled-components";
 import Generator from "./components/Generator";
+import ToastContainer from "./components/ToastContainer";
 import ToastProvider from "./components/ToastProvider";
 
 const App = () => (
   <ToastProvider maxToasts={3}>
     <GlobalStyle />
+    <ToastContainer timeout={3000} />
     <Generator />
     <GithubCorner
       href="https://github.com/cigrainger/toaster-oven"
