@@ -1,17 +1,8 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import Toast from "./Toast";
-
-const ToastContainer = styled.div`
-  width: 40vw;
-  background: transparent;
-  position: fixed;
-  top: 0;
-  margin: 1% auto;
-  display: flex;
-  flex-direction: column;
-`;
 
 export const ToastContext = React.createContext(null);
 
@@ -42,5 +33,20 @@ const ToastProvider = ({ maxToasts, children }) => {
     </ToastContext.Provider>
   );
 };
+
+Toast.propTypes = {
+  maxToasts: PropTypes.number,
+  children: PropTypes.node
+};
+
+const ToastContainer = styled.div`
+  width: 40vw;
+  background: transparent;
+  position: fixed;
+  top: 0;
+  margin: 1% auto;
+  display: flex;
+  flex-direction: column;
+`;
 
 export default ToastProvider;
