@@ -19,23 +19,25 @@ const Toast = ({ autoClose = 3000, message }) => {
     };
   }, []);
 
-  return render ? (
-    <Container pose={show ? "visible" : "hidden"} initialPose="hidden">
-      <MainRow>
-        <ChildContainer>{message}</ChildContainer>
-        <CloseContainer>
-          <CloseButton type="button" onClick={() => setShow(false)}>
-            <FontAwesomeIcon icon={faTimes} />
-          </CloseButton>
-        </CloseContainer>
-      </MainRow>
-      <TimeoutStrip
-        pose={show ? "visible" : "hidden"}
-        initialPose="hidden"
-        duration={autoClose}
-      />
-    </Container>
-  ) : null;
+  return (
+    render && (
+      <Container pose={show ? "visible" : "hidden"} initialPose="hidden">
+        <MainRow>
+          <ChildContainer>{message}</ChildContainer>
+          <CloseContainer>
+            <CloseButton type="button" onClick={() => setShow(false)}>
+              <FontAwesomeIcon icon={faTimes} />
+            </CloseButton>
+          </CloseContainer>
+        </MainRow>
+        <TimeoutStrip
+          pose={show ? "visible" : "hidden"}
+          initialPose="hidden"
+          duration={autoClose}
+        />
+      </Container>
+    )
+  );
 };
 
 Toast.propTypes = {
