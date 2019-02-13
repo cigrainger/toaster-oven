@@ -11,9 +11,8 @@ const ToastProvider = ({ maxToasts, children }) => {
 
   const addToast = (newToast) => {
     const maxID = toasts.length ? toasts[toasts.length - 1].id : 0;
-    newToast = { ...newToast, id: maxID + 1 };
-    let newToasts = [...toasts, newToast];
-    if (toasts.length > maxToasts) {
+    let newToasts = [...toasts, { ...newToast, id: maxID + 1 }];
+    if (newToasts.length > maxToasts) {
       newToasts = newToasts.slice(1);
     }
     setToasts(newToasts);
