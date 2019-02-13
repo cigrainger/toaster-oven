@@ -2,16 +2,18 @@ import { faBreadLoaf } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
 import styled from "styled-components";
+import toastQuotes from "../toastQuotes.json";
 import { ToastContext } from "./ToastProvider";
 
 const Generator = () => {
   const { addToast } = useContext(ToastContext);
+  const quote = toastQuotes[Math.floor(Math.random() * toastQuotes.length)];
 
   return (
     <Container>
       <Content>
         <Toast icon={faBreadLoaf} />
-        <Text onClick={() => addToast({ message: "Test" })}>
+        <Text onClick={() => addToast({ message: quote.quotation })}>
           Cook some toast.
         </Text>
       </Content>
