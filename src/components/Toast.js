@@ -76,16 +76,14 @@ const CloseButton = styled.button`
   cursor: pointer;
   outline: none;
   color: #ababab;
-  margin-top: -4px;
   background-color: transparent;
 `;
 
 const ChildContainer = styled.div`
   width: 90%;
-  font-size: 9pt;
+  font-size: 12pt;
   font-weight: bold;
-  margin: auto 16px;
-  display: relative;
+  margin: auto 5%;
   color: #405362;
 `;
 
