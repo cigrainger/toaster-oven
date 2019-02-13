@@ -12,5 +12,6 @@ yarn add styled-components \
     @fortawesome/react-fontawesome \
     @fortawesome/fontawesome-pro \ # only if you are a pro subscriber
     @fortawesome/pro-regular-svg-icons \ # only if you are a pro subscriber
-    react-pose
+    react-pose \
+    react-github-corner
 ```
