@@ -1,14 +1,19 @@
 import { faBreadLoaf } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { ToastContext } from "./ToastProvider";
 
 const Generator = () => {
+  const { addToast } = useContext(ToastContext);
+
   return (
     <Container>
       <Content>
         <Toast icon={faBreadLoaf} />
-        <Text onClick={() => console.log("clicked")}>Cook some toast.</Text>
+        <Text onClick={() => addToast({ message: "Test" })}>
+          Cook some toast.
+        </Text>
       </Content>
     </Container>
   );
