@@ -1,26 +1,27 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import Toast from "./Toast";
 
 export const ToastContext = React.createContext(null);
 
-const ToastProvider = ({ maxToasts, children }) => {
-  const [toasts, setToasts] = useState([]);
-
-  const addToast = (newToast) => {
-    const maxID = toasts.length ? toasts[toasts.length - 1].id : 0;
-    let newToasts = [...toasts, { ...newToast, id: maxID + 1 }];
-    if (newToasts.length > maxToasts) {
-      newToasts = newToasts.slice(1);
+const ToastProvider = ({ children }) => {
+  const [toasts, dispatch] = useReducer((state, action) => {
+    switch (action.type) {
+      case "add":
+        return [...state, { message: action.message, id: action.id }];
+      case "remove":
+        return state.filter(({ id }) => {
+          return id !== action.id;
+        });
+      default:
+        return state;
     }
-    setToasts(newToasts);
-  };
+  }, []);
 
-  const removeToast = (toastToRemove) =>
-    toasts.filter((toast) => toast !== toastToRemove);
+  console.log(toasts);
 
   return (
-    <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
+    <ToastContext.Provider value={{ toasts, dispatch }}>
       {children}
     </ToastContext.Provider>
   );
