@@ -1,18 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import { PoseGroup } from "react-pose";
+import posed, { PoseGroup } from "react-pose";
 import styled from "styled-components";
+import useToast from "../hooks/useToast";
 import Toast from "./Toast";
-import { ToastContext } from "./ToastProvider";
 
 const ToastContainer = ({ timeout }) => {
-  const { toasts } = useContext(ToastContext);
+  const { toasts } = useToast();
 
   return ReactDOM.createPortal(
     <Container>
       <PoseGroup>
         {toasts.map(({ message, id }) => (
-          <Toast message={message} key={id} timeout={timeout} />
+          <PosedToast key={id}>
+            <Toast message={message} id={id} timeout={timeout} />
+          </PosedToast>
         ))}
       </PoseGroup>
     </Container>,
@@ -29,5 +31,24 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+const PosedToast = posed.div({
+  enter: {
+    opacity: 1,
+    scaleY: 1,
+    transition: {
+      opacity: { ease: "easeOut", duration: 200 },
+      default: { ease: "linear", duration: 200 }
+    }
+  },
+  exit: {
+    opacity: 0,
+    scaleY: 0,
+    transition: {
+      opacity: { ease: "easeOut", duration: 200 },
+      default: { ease: "linear", duration: 200 }
+    }
+  }
+});
 
 export default ToastContainer;
