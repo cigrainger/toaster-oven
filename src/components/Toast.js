@@ -1,39 +1,29 @@
 import { faTimes } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import posed from "react-pose";
 import styled from "styled-components";
+import useTimeout from "../hooks/useTimeout";
+import useToast from "../hooks/useToast";
 
-const Toast = ({ timeout, message }) => {
-  const [show, setShow] = useState(true);
+const Toast = ({ timeout, message, id }) => {
+  const { removeToast } = useToast();
 
-  useEffect(() => {
-    let viewTimer = setTimeout(() => setShow(false), timeout);
-
-    return () => {
-      clearTimeout(viewTimer);
-    };
-  }, []);
+  useTimeout(() => removeToast(id), timeout);
 
   return (
-    show && (
-      <Container>
-        <MainRow>
-          <ChildContainer>{message}</ChildContainer>
-          <CloseContainer>
-            <CloseButton type="button" onClick={() => setShow(false)}>
-              <FontAwesomeIcon icon={faTimes} />
-            </CloseButton>
-          </CloseContainer>
-        </MainRow>
-        <TimeoutStrip
-          pose={show ? "visible" : "hidden"}
-          initialPose="hidden"
-          duration={timeout}
-        />
-      </Container>
-    )
+    <Container>
+      <MainRow>
+        <ChildContainer>{message}</ChildContainer>
+        <CloseContainer>
+          <CloseButton type="button" onClick={() => removeToast(id)}>
+            <FontAwesomeIcon icon={faTimes} />
+          </CloseButton>
+        </CloseContainer>
+      </MainRow>
+      <TimeoutStrip pose={"visible"} initialPose="hidden" duration={timeout} />
+    </Container>
   );
 };
 
@@ -42,26 +32,7 @@ Toast.propTypes = {
   message: PropTypes.string.isRequired
 };
 
-const PosedContainer = posed.li({
-  enter: {
-    opacity: 1,
-    scaleY: 1,
-    transition: {
-      opacity: { ease: "easeOut", duration: 200 },
-      default: { ease: "linear", duration: 200 }
-    }
-  },
-  exit: {
-    opacity: 0,
-    scaleY: 0,
-    transition: {
-      opacity: { ease: "easeOut", duration: 200 },
-      default: { ease: "linear", duration: 200 }
-    }
-  }
-});
-
-const Container = styled(PosedContainer)`
+const Container = styled.li`
   width: 95%;
   height: 128px;
   display: flex;
