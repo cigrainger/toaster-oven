@@ -13,5 +13,6 @@ yarn add styled-components \
     @fortawesome/fontawesome-pro \ # only if you are a pro subscriber
     @fortawesome/pro-regular-svg-icons \ # only if you are a pro subscriber
     react-pose \
-    react-github-corner
+    react-github-corner \
+    uuid
 ```
