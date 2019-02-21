@@ -1,7 +1,7 @@
 import { faTimes } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 import posed from "react-pose";
 import styled from "styled-components";
 import useTimeout from "../hooks/useTimeout";
@@ -10,7 +10,10 @@ import useToast from "../hooks/useToast";
 const Toast = ({ timeout, message, id }) => {
   const { removeToast } = useToast();
 
-  useTimeout(() => removeToast(id), timeout);
+  useEffect(() => {
+    let timer = setTimeout(() => removeToast(id), timeout);
+    return () => clearTimeout(timer);
+  }, [timeout]);
 
   return (
     <Container>
