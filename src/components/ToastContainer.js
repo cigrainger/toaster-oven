@@ -11,10 +11,10 @@ const ToastContainer = ({ timeout }) => {
   return ReactDOM.createPortal(
     <Container>
       <PoseGroup>
-        {toasts.map(({ message, id }) => (
-          <PosedToast key={id}>
-            <Toast message={message} id={id} timeout={timeout} />
-          </PosedToast>
+        {toasts.map(({ content, id }) => (
+          <PosedToastHolder key={id}>
+            <Toast content={content} id={id} timeout={timeout} />
+          </PosedToastHolder>
         ))}
       </PoseGroup>
     </Container>,
@@ -32,21 +32,23 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const PosedToast = posed.div({
+const ToastHolder = styled.div`
+  transform-origin-y: 0%;
+`;
+
+const PosedToastHolder = posed(ToastHolder)({
   enter: {
-    opacity: 1,
     scaleY: 1,
+    opacity: 1,
     transition: {
-      opacity: { ease: "easeOut", duration: 200 },
-      default: { ease: "linear", duration: 200 }
+      default: { ease: "easeOut", duration: 300 }
     }
   },
   exit: {
     opacity: 0,
     scaleY: 0,
     transition: {
-      opacity: { ease: "easeOut", duration: 200 },
-      default: { ease: "linear", duration: 200 }
+      default: { ease: "easeOut", duration: 300 }
     }
   }
 });
