@@ -4,10 +4,9 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import posed from "react-pose";
 import styled from "styled-components";
-import useTimeout from "../hooks/useTimeout";
 import useToast from "../hooks/useToast";
 
-const Toast = ({ timeout, message, id }) => {
+const Toast = ({ timeout, content, id }) => {
   const { removeToast } = useToast();
 
   useEffect(() => {
@@ -18,7 +17,7 @@ const Toast = ({ timeout, message, id }) => {
   return (
     <Container>
       <MainRow>
-        <ChildContainer>{message}</ChildContainer>
+        <ChildContainer>{content}</ChildContainer>
         <CloseContainer>
           <CloseButton type="button" onClick={() => removeToast(id)}>
             <FontAwesomeIcon icon={faTimes} />
@@ -31,8 +30,9 @@ const Toast = ({ timeout, message, id }) => {
 };
 
 Toast.propTypes = {
-  autoClose: PropTypes.number,
-  message: PropTypes.string.isRequired
+  timeout: PropTypes.number.isRequired,
+  content: PropTypes.node.isRequired,
+  id: PropTypes.number.isRequired
 };
 
 const Container = styled.li`
@@ -43,7 +43,6 @@ const Container = styled.li`
   margin: 24px auto 0;
   background-color: #fdf4d8;
   border-radius: 2px;
-  transform-origin-y: 0%;
 `;
 
 const MainRow = styled.div`
