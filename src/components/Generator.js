@@ -5,12 +5,14 @@ import styled from "styled-components";
 import useToast from "../hooks/useToast.js";
 import toastQuotes from "../toastQuotes.json";
 
+function selectRandom(list) {
+  return list[Math.floor(Math.random() * list.length)];
+}
+
 const Generator = () => {
   const { addToast } = useToast();
 
-  const { quotation } = toastQuotes[
-    Math.floor(Math.random() * toastQuotes.length)
-  ];
+  const { quotation } = selectRandom(toastQuotes);
 
   return (
     <Container>
