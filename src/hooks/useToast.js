@@ -2,11 +2,11 @@ import { useContext } from "react";
 import uuidv1 from "uuid/v1";
 import { ToastContext } from "../components/ToastProvider";
 
-const useToast = () => {
+function useToast() {
   const { toasts, dispatch } = useContext(ToastContext);
 
-  const addToast = (message) => {
-    dispatch({ type: "add", id: uuidv1(), message });
+  const addToast = (content) => {
+    dispatch({ type: "add", id: uuidv1(), content });
   };
 
   const removeToast = (id) => {
@@ -14,6 +14,6 @@ const useToast = () => {
   };
 
   return { toasts, addToast, removeToast };
-};
+}
 
 export default useToast;
