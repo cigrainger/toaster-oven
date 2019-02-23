@@ -6,7 +6,7 @@ import ToastContainer from "./components/ToastContainer";
 import ToastProvider from "./components/ToastProvider";
 
 const App = () => (
-  <ToastProvider>
+  <ToastProvider maxToasts={4}>
     <GlobalStyle />
     <ToastContainer timeout={3000} />
     <Generator />
